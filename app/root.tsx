@@ -2,6 +2,7 @@ import {
   isRouteErrorResponse,
   Links,
   Meta,
+  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -32,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-gray-100 font-sans antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -42,7 +43,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <nav className="bg-blue-500 shadow p-4">
+        <div className="container mx-auto flex items-center justify-between">
+          <NavLink
+            to={"/"}
+            className={"text-2xl font-bold text-indigo-200 hover:text-white"}
+          >
+            RRV7 Crud
+          </NavLink>
+          <div className="space-x-4">
+            <NavLink to={"/"} className={"text-indigo-200 hover:text-white"}>
+              Items
+            </NavLink>
+            <NavLink to={"/new"} className={"text-indigo-200 hover:text-white"}>
+              New Items
+            </NavLink>
+          </div>
+        </div>
+      </nav>
+      <main className="container mx-auto p-4">
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
